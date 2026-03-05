@@ -3,17 +3,17 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
 const session = require('express-session');
-const axios = require('axios'); // For making the discovered API calls
+const axios = require('axios'); 
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Gemini API Key from environment or fallback
+
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || "AIzaSyAt_8AiNsKu7YMW7Y2_lzPJQokgKm34Iyk";
 const SUPERBFSI_API_DOCS_URL = "https://campaignx.inxiteout.ai/openapi.json";
 const SUPERBFSI_BASE_URL = "https://campaignx.inxiteout.ai";
 
-// Cache for OpenAPI spec
+
 let apiSpec = null;
 
 app.use(cors());
@@ -23,10 +23,9 @@ app.use(session({
     secret: 'campaignx-super-secret-key-for-hackathon',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false } // False for dev HTTP
+    cookie: { secure: false } 
 }));
 
-// Fetch OpenAPI Spec on Startup
 async function fetchApiSpec() {
     try {
         const response = await axios.get(SUPERBFSI_API_DOCS_URL);
@@ -38,10 +37,10 @@ async function fetchApiSpec() {
 }
 fetchApiSpec();
 
-// ---- AUTHENTICATION ROUTES ---- //
+
 app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
-    // Mock authentication for hackathon MVP
+    
     if (username === 'admin' && password === 'admin') {
         req.session.isAuthenticated = true;
         req.session.user = username;
@@ -62,15 +61,13 @@ app.get('/api/check-auth', (req, res) => {
     return res.json({ authenticated: false });
 });
 
-// Middleware to protect routes
+
 function requireAuth(req, res, next) {
     if (req.session.isAuthenticated) return next();
     return res.status(401).json({ error: 'Unauthorized' });
 }
 
-// ---- AGENTIC AI & DYNAMIC API DISCOVERY ROUTES ---- //
 
-// 1. Generate Strategy (Same as before, but securely on backend)
 app.post('/api/agent/generate', requireAuth, async (req, res) => {
     const { brief } = req.body;
 

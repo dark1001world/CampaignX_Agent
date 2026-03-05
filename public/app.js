@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Auth Logic ---
+    
     const authOverlay = document.getElementById('authOverlay');
     const appContent = document.getElementById('appContent');
     const loginForm = document.getElementById('loginForm');
     const loginError = document.getElementById('loginError');
     const logoutBtn = document.getElementById('logoutBtn');
 
-    // Check if already authenticated
+    
     fetch('/api/check-auth')
         .then(res => res.json())
         .then(data => {
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         loginError.textContent = '';
     }
 
-    // --- Agent Logic ---
+    
     const briefInput = document.getElementById('briefInput');
     const generateBtn = document.getElementById('generateBtn');
     const btnText = generateBtn.querySelector('.btn-text');
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const approvalsQueue = document.getElementById('approvalsQueue');
     const logsContainer = document.getElementById('agentLogs');
 
-    // Dashboard metrics
+   
     let currentOpenRate = 0;
     let currentClickRate = 0;
 

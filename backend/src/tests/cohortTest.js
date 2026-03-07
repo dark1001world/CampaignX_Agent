@@ -4,7 +4,7 @@ const runTest = async () => {
 
   const customers = await getCustomerCohort()
 
-  console.log("Customers fetched:", customers.length)
+  console.log("Customers fetched:", customers)
 }
 
 runTest()

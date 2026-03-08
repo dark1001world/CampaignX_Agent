@@ -21,7 +21,7 @@ const formatSendTime = (offsetMinutes = 15) => {
   return `${dd}:${mm}:${yy} ${HH}:${MM}:${SS}`
 }
 
-// Split audience into test (20%) and full (80%) groups
+
 const splitAudience = (customerIds) => {
   const shuffled  = [...customerIds].sort(() => Math.random() - 0.5)
   const testSize  = Math.ceil(shuffled.length * 0.20)
@@ -30,16 +30,16 @@ const splitAudience = (customerIds) => {
   return { testGroup, fullGroup }
 }
 
-// Score a variant based on metrics
+
 const scoreVariant = (metrics) => {
   const openRate  = metrics?.open_rate  ?? 0
   const clickRate = metrics?.click_rate ?? 0
-  return (openRate * 0.4) + (clickRate * 0.6) // click rate weighted higher
+  return (openRate * 0.4) + (clickRate * 0.6) 
 }
 
-// ─────────────────────────────────────────────────────────────
+
 // STEP 1-4: Interpret → Segment → Generate 3 Variants → Save
-// ─────────────────────────────────────────────────────────────
+
 export const runCampaignPipeline = async (brief) => {
 
   console.log("Step 1: Interpreting brief...")
@@ -97,9 +97,8 @@ export const runCampaignPipeline = async (brief) => {
   }
 }
 
-// ─────────────────────────────────────────────────────────────
 // STEP 5-6: Human Approves → A/B/C Test Sent to 20% audience
-// ─────────────────────────────────────────────────────────────
+
 export const approveCampaign = async (campaign_id) => {
 
   const doc = await Campaign.findOne({ temp_id: campaign_id })
@@ -147,9 +146,9 @@ export const approveCampaign = async (campaign_id) => {
   }
 }
 
-// ─────────────────────────────────────────────────────────────
+
 // STEP 7-9: Collect Metrics → Score → AI Selects Best Variant
-// ─────────────────────────────────────────────────────────────
+
 export const collectAbTestMetrics = async (campaign_id) => {
 
   const doc = await Campaign.findOne({ temp_id: campaign_id })
@@ -207,9 +206,9 @@ export const collectAbTestMetrics = async (campaign_id) => {
   }
 }
 
-// ─────────────────────────────────────────────────────────────
+
 // STEP 10-11: Human Confirms → Send Winner to Full Audience
-// ─────────────────────────────────────────────────────────────
+
 export const confirmAndSendWinner = async (campaign_id) => {
 
   const doc = await Campaign.findOne({ temp_id: campaign_id })
@@ -246,9 +245,8 @@ export const confirmAndSendWinner = async (campaign_id) => {
   }
 }
 
-// ─────────────────────────────────────────────────────────────
 // STEP 12-14: Analyze Final → Optimize → Human Approval
-// ─────────────────────────────────────────────────────────────
+
 export const analyzeCampaign = async (campaign_id) => {
 
   const doc = await Campaign.findOne({ real_campaign_id: campaign_id })
@@ -323,9 +321,8 @@ export const analyzeCampaign = async (campaign_id) => {
   }
 }
 
-// ─────────────────────────────────────────────────────────────
 // STEP 15-16: Human Approves → Relaunch Optimized Campaign
-// ─────────────────────────────────────────────────────────────
+
 export const relaunchOptimizedCampaign = async (campaign_id) => {
 
   const doc = await Campaign.findOne({ real_campaign_id: campaign_id })

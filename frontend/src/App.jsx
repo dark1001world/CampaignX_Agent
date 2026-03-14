@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import AegisAgentUI from "./home"
 import AuthPage from "./AuthPage"
 
+
 function App() {
   const [user, setUser] = useState(null)
 

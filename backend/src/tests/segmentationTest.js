@@ -9,7 +9,8 @@ const runTest = async () => {
   const result = await segmentUsers(parsedBrief)
 
   console.log("Segmented Users:")
-  console.log(result.slice(0,5))
+  
+  
 }
 
 runTest()

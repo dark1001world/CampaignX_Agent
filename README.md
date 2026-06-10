@@ -64,6 +64,11 @@ AegisAI uses a 4-agent system:
 * Real-time campaign monitoring dashboard
 * Integration with major CRM platforms
 
+
+Deployed Link  - https://campaignx-agent.onrender.com
+
 ## License
 
 This project is licensed under the MIT License.
+
+
